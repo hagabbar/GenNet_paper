@@ -1,0 +1,218 @@
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[%
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+showpacs,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+ twocolumn,
+ prl,
+ reprint,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+floatfix,
+]{revtex4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage{lineno}
+\usepackage{color}
+\usepackage{acronym}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{hyperref}
+%\addbibresource{references.bib}
+%\linenumbers % Commence numbering lines
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+\hypersetup{
+%--- fill inside borders ---
+  colorlinks=true,        % false: boxed links; true: colored links
+  linkcolor=black,         % color of internal links
+  citecolor=cyan,         % color of links to bibliography
+}
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+%% ----- some handy shortcuts
+\newcommand{\dcc}{LIGO-P1700378}
+\newcommand{\optsnr}{\rho_{\mathrm{opt}}}
+\newcommand{\fmin}{f_{\mathrm{min}}}
+
+%% ----- comment commands for each of us
+\newcommand{\chris}[1]{\textbf{\textcolor{green}{CHRIS: #1}}}
+\newcommand{\michael}[1]{\textbf{\textcolor{red}{MICHAEL: #1}}}
+\newcommand{\hunter}[1]{\textbf{\textcolor{blue}{HUNTER: #1}}}
+\newcommand{\fergus}[1]{\textbf{\textcolor{cyan}{FERGUS: #1}}}
+
+%% ----- result macros - where we store all key results
+\newcommand{\cnnsnreight}{97.88}
+
+%% ----- input git-version tag
+%\input{tag.tex}
+
+\begin{document}
+
+\preprint{APS/123-QED}
+
+%
+% Be clear and specific. Do not claim too much or too little.
+%
+\title{Any title, doesnt really matter}
+
+\author{Hunter Gabbard}
+ \email{Corresponding author: h.gabbard.1@research.gla.ac.uk}
+\author{Chris Messenger}
+\affiliation{
+ SUPA, School of Physics and Astronomy, \\
+ University of Glasgow, \\
+ Glasgow G12 8QQ, United Kingdom \\
+}
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+%\date{\commitDATE\\\mbox{\small \commitID}\\\mbox{\dcc}}
+
+%
+% Explain what the result is and why it’s important, plus possibly a sentence
+% or two of introduction, motivation, methods, caveats.
+%
+\begin{abstract} 
+%
+This may be an abstract one day.
+%
+\end{abstract}
+
+%\pacs{04.30.-w, 04.80.Nn}% PACS, the Physics and Astronomy
+
+
+                             % Classification Scheme.
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+                              %display desired
+
+
+\maketitle
+
+\acrodef{BBH}[BBH]{binary black hole}
+\acrodef{SNR}[SNR]{signal-to-noise ratio}
+\acrodef{PSD}[PSD]{power spectral density}
+\acrodef{FFT}[FFT]{fast Fourier transform}
+\acrodef{CNN}[CNN]{convolutional neural network}
+\acrodef{ROC}[ROC]{receiver operator characteristic}
+
+%\tableofcontents
+
+%
+% Explain what the result is and why it’s important, particularly arguing how
+% the paper will move physics forward. Like the abstract, but shorter and with
+% a focus on WHY not HOW.
+%
+
+%
+% Give sufficient background so the general reader can understand what you did
+% and why you did it.
+%
+\textit{Introduction.}--- 
+%
+% intro to gravitational-waves
+\begin{itemize}
+\item Bayesian Parameter Estimation.
+\item Generative Adversarial Networks.
+\item GWs are the shit.
+\end{itemize}
+
+\textit{Methods}---
+
+\begin{itemize}
+\item How do you incorporate priors.
+\item Convergence.
+\item Volume of training data.
+\item Modifications from standard GAN (most of section).
+\end{itemize}
+
+\textit{Results}---
+
+GW150914. Show PE estimates on mass, spins, etc.
+
+Small section on waveform reconstruction. Plot of this as well.  
+
+\begin{itemize}
+\item Which priors were used. Same as GW150914 analysis.
+\end{itemize}
+\textit{Conclusions}---
+
+Percision that we get, speed (sell this hard), 
+
+\begin{itemize}
+\item Sell speed, with the right caveats.
+\item Waveform reconstruction.
+\item We are not model indepenent.
+\item Non-Gaussian noise.
+\end{itemize}
+
+%
+% acknowledge peopkle and funding agencies
+%
+\emph{Acknowledgements.}---
+%
+We would like to acknowledge valuable input from the LIGO-Virgo Collaboration
+specifically from T.~Dent, R.~Reinhard, I.~Siong Heng, M.~Cavalgia, and the compact binary coalescence and
+machine-learning working groups. The authors also gratefully acknowledge the
+Science and Technology Facilities Council of the United Kingdom. CM is
+supported by the Science and Technology Research Council (grant
+No.~ST/~L000946/1).
+%
+%\end{acknowledgments}
+
+
+% The \nocite command causes all entries in a bibliography to be printed out
+% whether or not they are actually referenced in the text. This is appropriate
+% for the sample file to show the different styles of references, but authors
+% most likely will not want to use it.
+
+\bibliographystyle{apsrev4-1}
+\bibliography{references}% Produces the bibliography via BibTeX.
+
+
+\end{document}
+%
+% ****** End of file apssamp.tex ******
