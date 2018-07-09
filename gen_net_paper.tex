@@ -152,15 +152,45 @@ This may be an abstract one day.
 % and why you did it.
 %
 \textit{Introduction.}--- 
+
 %
 % intro to gravitational-waves
+With the recent detections of [some number] binary black holes \cite{detection papers} and binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo Scientific Collaboration (LVC), the era of gravitational-wave astronomy has begun. The LVC is composed of three detectors in Hanford, Washington State, Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached design senstivity, they will be able probe a search distance on the order of 200 Mpc. As the detectors become more sensitive, we will be limited by the sheer number of signals to process. As such, it is of paramount importance that we are able to get full parameter estimate posteriors on signals in a timely and efficient manner.
+
+%
+% intro to Bayesian Parameter Estimation
+%
+
+%
+% intro to generative adversarial networks
+%
+A variant of machine learning, generative adversarial networks (GANs), has gained some traction in recent years \cite{arxiv:1406.2661}. Some successful applications of GANs can be seen in image retrieval of historical archives \cite{arxiv:1607.02748}, text to image synthesis \cite{arxiv:1605.05396}, simulation of high energy particle showers \cite{arxiv:1712.10321}, along with many others. 
+
+GANs are composed of two neural networks, a discriminator and a generator. The generator network attempts to map random latent variables to some distribution which the user wants the GAN to approximate, whereas the discriminator network will attempt to distinguish between samples from the real distribution and fake samples made by the generator network. You need only to feed into the generator as input a vector of latent random variables (can be uniform, Gaussian, etc.). The variables are latent in that they are not directly related to the distribution that the generator is trying to emulate, however in our case they do have an underlying Gaussian distribution. An additional motivation for using GANs is that they are also semi-supervised, so few training samples are needed, and you are left with by default two tools (one for classification and one for sample generation).  
+
+We use a variant of a GAN called deep convolutional generative adversarial
+networks (DCGAN)~\cite{1511.06434}. DCGANs are composed of two networks which act as
+the generator and discriminator, however the difference between DCGANs and their more standard
+GAN brethren is that both networks are entirely made of
+convolutional layers. We follow the architecture guidelines laid out in Radford et al.
+~\cite{1511.06434} which are as follows: replace pooling (downsampling) layers with strided
+convolutions (alternative to pooling),
+use batch normalization in both the generator and the discriminator, remove all fully
+connected hidden layers, use ReLU activation functions~\cite{Nair:2010:RLU:3104322.3104425}
+in the generator except for the output,
+and use LeakyReLU activation functions~\cite{Maas2013RectifierNI} in the discriminator for all layers.
+
+To-do:
+
 \begin{itemize}
+\item GWs.
 \item Bayesian Parameter Estimation.
-\item Generative Adversarial Networks.
-\item GWs are the shit.
 \end{itemize}
 
 \textit{Methods}---
+
+
+To-do:
 
 \begin{itemize}
 \item How do you incorporate priors.
@@ -171,6 +201,9 @@ This may be an abstract one day.
 
 \textit{Results}---
 
+
+To-do:
+
 GW150914. Show PE estimates on mass, spins, etc.
 
 Small section on waveform reconstruction. Plot of this as well.  
@@ -179,6 +212,8 @@ Small section on waveform reconstruction. Plot of this as well.
 \item Which priors were used. Same as GW150914 analysis.
 \end{itemize}
 \textit{Conclusions}---
+
+To-do:
 
 Percision that we get, speed (sell this hard), 
 
