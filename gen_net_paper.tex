@@ -152,7 +152,6 @@ This may be an abstract one day.
 % and why you did it.
 %
 \textit{Introduction.}--- 
-
 %
 % intro to gravitational-waves
 With the recent detections of [some number] binary black holes \cite{detection papers} and binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo Scientific Collaboration (LVC), the era of gravitational-wave astronomy has begun. The LVC is composed of three detectors in Hanford, Washington State, Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached design senstivity, they will be able probe a search distance on the order of 200 Mpc. As the detectors become more sensitive, we will be limited by the sheer number of signals to process. As such, it is of paramount importance that we are able to get full parameter estimate posteriors on signals in a timely and efficient manner.
@@ -162,7 +161,7 @@ With the recent detections of [some number] binary black holes \cite{detection p
 %
 In order to determine the parameters of a detection, we apply Bayes' theorem \cite{Bayes and R. Price, Phil. Trans. R. Soc. London 53, 370 (1763). E. T. Jaynes, Probability Theory: The Logic of Science, edited by G. L. Bretthorst (Cambridge University Press, Cambridge, England, 2003).}. We can gain most information concerning the parameters of a source through the probability density function (PDF) of all unknown parameters, given data from both detectors. 
 
-The PDF posterior is computed from a liklihood of the data given given some parameters multiplied by a prior PDF on  the parameters made independent of the recorded data. We can compute marginalized PDFs using a suite of algorithms from C/C++ package known as \texttt{LALInference} \cite{LALSuite}. Two independent stochastic sampling techniques are utilized in \texttt{LALInference} known as Markov-chain Monte Carlo \cite{MCMC paper} and nested sampling \cite{nested sampling}.
+The PDF posterior is computed from a liklihood of the data given given some parameters multiplied by a prior PDF on  the parameters made independent of the recorded data. We can compute marginalized PDFs using a suite of algorithms from C/C++ package known as \texttt{LALInference} \cite{LALSuite}. Two independent stochastic sampling techniques are utilized in \texttt{LALInference} known as Markov-chain Monte Carlo \cite{MCMC paper} and nested sampling \cite{nested sampling}. 
 
    
 
@@ -189,11 +188,15 @@ To-do:
 
 \begin{itemize}
 \item GWs.
-\item Bayesian Parameter Estimation.
 \end{itemize}
 
-\textit{Methods}---
+\textit{Methods}--- 
+Given any signal burried in noise, the GAN will attempt to produce reconstructed waveform estimates on the true underlying GW template waveform. After having produced reconstructed waveforms, these estimates are then fed to a convolutional neural network which has been trained seperately on noise-free waveforms to produce point estimates on their parameters. 
 
+All weights in the GAN are initialized randomnly over a uniform distribution prior to training. The generator portion of the network then takes as input a vector of latent variables 100 samples long. After one training iteration of the generator, the output of the generator is recorded and sent to the discriminator network. The discriminator network then has to decide whether what the generator has made is either ``real'' or ``fake'' given a set of real gravitational waveform templates.
+
+% need to explain this in more technical terms.
+The outcome of the discriminator's decision is then propogated back through both networks, of which each has a loss function which is updated accordingly.
 
 To-do:
 
