@@ -160,6 +160,11 @@ With the recent detections of [some number] binary black holes \cite{detection p
 %
 % intro to Bayesian Parameter Estimation
 %
+In order to determine the parameters of a detection, we apply Bayes' theorem \cite{Bayes and R. Price, Phil. Trans. R. Soc. London 53, 370 (1763). E. T. Jaynes, Probability Theory: The Logic of Science, edited by G. L. Bretthorst (Cambridge University Press, Cambridge, England, 2003).}. We can gain most information concerning the parameters of a source through the probability density function (PDF) of all unknown parameters, given data from both detectors. 
+
+The PDF posterior is computed from a liklihood of the data given given some parameters multiplied by a prior PDF on  the parameters made independent of the recorded data. We can compute marginalized PDFs using a suite of algorithms from C/C++ package known as \texttt{LALInference} \cite{LALSuite}. Two independent stochastic sampling techniques are utilized in \texttt{LALInference} known as Markov-chain Monte Carlo \cite{MCMC paper} and nested sampling \cite{nested sampling}.
+
+   
 
 %
 % intro to generative adversarial networks
