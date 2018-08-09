@@ -96,7 +96,7 @@ floatfix,
 %
 % Be clear and specific. Do not claim too much or too little.
 %
-\title{Any title, doesnt really matter}
+\title{Generative Adversarial Networks for LIGO Parameter Estimation}
 
 \author{Hunter Gabbard}
  \email{Corresponding author: h.gabbard.1@research.gla.ac.uk}
@@ -154,7 +154,7 @@ This may be an abstract one day.
 \textit{Introduction.}--- 
 %
 % intro to gravitational-waves
-With the recent detections of [some number] binary black holes \cite{detection papers} and binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo Scientific Collaboration (LVC), the era of gravitational-wave astronomy has begun. The LVC is composed of three detectors in Hanford, Washington State, Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached design senstivity, they will be able probe a search distance on the order of 200 Mpc. As the detectors become more sensitive, we will be limited by the sheer number of signals to process. As such, it is of paramount importance that we are able to get full parameter estimate posteriors on signals in a timely and efficient manner.
+With the recent detections of six binary black holes \cite{detection papers} and a binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo Scientific Collaboration (LVC), the era of gravitational-wave astronomy has begun. The LVC is composed of three detectors in Hanford, Washington State, Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached design senstivity, they will be able probe a search distance on the order of 200 Mpc. As the detectors become more sensitive, we will be limited by the sheer number of signals to process. As such, it is of paramount importance that we are able to get full parameter estimate posteriors on signals in a timely and efficient manner.
 
 %
 % intro to Bayesian Parameter Estimation
@@ -193,18 +193,24 @@ To-do:
 \textit{Methods}--- 
 Given any signal burried in noise, the GAN will attempt to produce reconstructed waveform estimates on the true underlying GW template waveform. After having produced reconstructed waveforms, these estimates are then fed to a convolutional neural network which has been trained seperately on noise-free waveforms to produce point estimates on their parameters. 
 
-All weights in the GAN are initialized randomnly over a uniform distribution prior to training. The generator portion of the network then takes as input a vector of latent variables 100 samples long. After one training iteration of the generator, the output of the generator is recorded and sent to the discriminator network. The discriminator network then has to decide whether what the generator has made is either ``real'' or ``fake'' given a set of real gravitational waveform templates.
+% how GAN is trained
+All weights in the GAN are initialized randomnly over a uniform distribution prior to training. The generator portion of the network takes as input a vector of latent variables 100 samples long. After one training iteration of the generator, there is a second training procedure whereby we append an additional layer to the generator model. This final layer is composed of two neurons where one computes the mean of the difference between the generator output and $h_t$ and the other computes the standard deviation of the difference between the generator output and $h_t$. This final layer enforces the generator to make an output which, when subtracted from $h_t$, will be a time series with unit variance and zero mean. The discriminator network then has to decide whether what the generator has made is either ``real'' or ``fake''. ``Real'' in this case, refers to gravitational wave template waveforms spanning a large parameter space and ``fake'' being the generator produced estimates on the $h_t$ noise-free waveform. 
 
-% need to explain this in more technical terms.
-The outcome of the discriminator's decision is then propogated back through both networks, of which each has a loss function which is updated accordingly.
+% h_t training signal simulation details
+Our GAN is trained using a BBH waveform of the same parameters as those from GW150914 which has been injected in Gaussian noise and is produced using \texttt{LALInference}. The injection is whitened using a simulated detector noise power spectral density (PSD) which is equivalent to what is expected from the Advanced LIGO design senstivity curves. Whitening is done in order to rescale the noise contribution at each frequency to have equal power.
 
+% ``real'' template waveform training data simulation details
+
+The discriminator needs a set of ``real'' gravitational wave signals to distinguish from what the generator has made, so we simulated those using a library of gravitational wave data analysis routines called \texttt{LALSuite}. The parameters for these signals are distributed according to an astrophysical distribution. Systems are simulated such that $m_{1} > m_{2}$ , component masses are in the range from 5 - 95\(M_\odot\), and there is zero spin. Signals are given a random right ascension and declination where we assume an isotropic prior on the sky. The phase is drawn using a uniform prior on the range $[0,2\pi]$, whereas the cosine of the inclination angle is uniformly drawn between $[-1,1]$. We have found that simulating $\sim8,000$ templates is sufficient to cover the entire parameter space. 
+
+Training continues until both loss functions have reached some sort of equilibrium (usually known as a local Nash equilibrium). However, such local Nash equilibriums can ocassionally be off from the true Nash equilibrium, so it can be difficult determining a training stopping threshold. Training accuracy is usually quantified through use of the loss functions of the GAN, visual comparison of generator output to the true noise-free waveform and visual comparisons of the estimated posterior distributions of both methods.
 To-do:
 
 \begin{itemize}
 \item How do you incorporate priors.
 \item Convergence.
 \item Volume of training data.
-\item Modifications from standard GAN (most of section).
+%\item Modifications from standard GAN (most of section).
 \end{itemize}
 
 \textit{Results}---
