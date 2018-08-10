@@ -203,13 +203,17 @@ Our GAN is trained using a BBH waveform of the same parameters as those from GW1
 
 The discriminator needs a set of ``real'' gravitational wave signals to distinguish from what the generator has made, so we simulated those using a library of gravitational wave data analysis routines called \texttt{LALSuite}. The parameters for these signals are distributed according to an astrophysical distribution. Systems are simulated such that $m_{1} > m_{2}$ , component masses are in the range from 5 - 95\(M_\odot\), and there is zero spin. Signals are given a random right ascension and declination where we assume an isotropic prior on the sky. The phase is drawn using a uniform prior on the range $[0,2\pi]$, whereas the cosine of the inclination angle is uniformly drawn between $[-1,1]$. We have found that simulating $\sim8,000$ templates is sufficient to cover the entire parameter space. 
 
+%Convergence
 Training continues until both loss functions have reached some sort of equilibrium (usually known as a local Nash equilibrium). However, such local Nash equilibriums can ocassionally be off from the true Nash equilibrium, so it can be difficult determining a training stopping threshold. Training accuracy is usually quantified through use of the loss functions of the GAN, visual comparison of generator output to the true noise-free waveform and visual comparisons of the estimated posterior distributions of both methods.
+
+Convergence towards the Nash equilibrium is attained through multiple train/test iterations using marginally modified GANs. Some of the many modifications that were tried include additonal layers, varrying activation functions, Dropout percentage, filter size and stride length. In the end, the ideal network configuration which was used in this study can be seen in \textbf{Some Figure}. 
+
 To-do:
 
 \begin{itemize}
 \item How do you incorporate priors.
-\item Convergence.
-\item Volume of training data.
+%\item Convergence.
+%\item Volume of training data.
 %\item Modifications from standard GAN (most of section).
 \end{itemize}
 
@@ -227,6 +231,11 @@ Small section on waveform reconstruction. Plot of this as well.
 \end{itemize}
 \textit{Conclusions}---
 
+We have shown in this letter that GANs, given an arbitrary whitened signal burried in whitened Gaussian noise, can reconstruct the noise-free waveform to a high degree of accuracy. When multiple estimates of the $h_t$ noise-free waveform have been sent through a seperately trained parameter estimation CNN, it was shown that the posterior distribution of both the machine learning method and the Bayesian approach closely overlap.
+
+The total training time for the GAN waveform reconstruction and CNN parameter estimation is on the order of \textbf{Some number}, while the Bayesian inference approach is on the order of \textbf{Some number}. Thus, the GAN approach offers a significant decrease in the latency required to get Bayesian posterior-like estimates on gravitational wave parameters. Low-latency parameter estimation will be of increasing importance in the near future. As the detectors become more sensitive, we will see an increased number of gravitational wave signals. These signals will need to be processed in an efficient and timely manner so that our EM partners may have the most accurate information in the fastest time period.   
+
+Among many other alternatives, future studies should be done on how non-Gaussian noise affects the accuracy of GAN parameter estimation. 
 To-do:
 
 Percision that we get, speed (sell this hard), 
