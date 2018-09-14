@@ -138,6 +138,7 @@ This may be an abstract one day.
 \acrodef{FFT}[FFT]{fast Fourier transform}
 \acrodef{CNN}[CNN]{convolutional neural network}
 \acrodef{ROC}[ROC]{receiver operator characteristic}
+\acrodef{GAN}[GAN]{generative adversarial network}
 
 %\tableofcontents
 
@@ -154,35 +155,74 @@ This may be an abstract one day.
 \textit{Introduction.}--- 
 %
 % intro to gravitational-waves
-With the recent detections of six binary black holes \cite{detection papers} and a binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo Scientific Collaboration (LVC), the era of gravitational-wave astronomy has begun. The LVC is composed of three detectors in Hanford, Washington State, Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached design senstivity, they will be able probe a search distance on the order of 200 Mpc. As the detectors become more sensitive, we will be limited by the sheer number of signals to process. As such, it is of paramount importance that we are able to get full parameter estimate posteriors on signals in a timely and efficient manner.
+With the recent detections of six binary black holes \cite{detection papers}
+and a binary neutron merger GW170817 \cite{BNS paper} by the LIGO-Virgo
+Scientific Collaboration (LVC), the era of gravitational-wave astronomy has
+begun. The LVC is composed of three detectors in Hanford, Washington State,
+Livingston, Louisiana, and Pisa, Italy. Once the detectors will have reached
+design senstivity, they will be able probe a search distance on the order of
+200 Mpc. As the detectors become more sensitive, we will be limited by the
+sheer number of signals to process. As such, it is of paramount importance that
+we are able to get full parameter estimate posteriors on signals in a timely
+and efficient manner.
 
 %
 % intro to Bayesian Parameter Estimation
 %
-In order to determine the parameters of a detection, we apply Bayes' theorem \cite{Bayes and R. Price, Phil. Trans. R. Soc. London 53, 370 (1763). E. T. Jaynes, Probability Theory: The Logic of Science, edited by G. L. Bretthorst (Cambridge University Press, Cambridge, England, 2003).}. We can gain most information concerning the parameters of a source through the probability density function (PDF) of all unknown parameters, given data from both detectors. 
+In order to determine the parameters of a detection, we apply Bayes' theorem
+\cite{Bayes and R. Price, Phil. Trans. R. Soc. London 53, 370 (1763). E. T.
+Jaynes, Probability Theory: The Logic of Science, edited by G. L. Bretthorst
+(Cambridge University Press, Cambridge, England, 2003).}. We can gain most
+information concerning the parameters of a source through the probability
+density function (PDF) of all unknown parameters, given data from both
+detectors. 
 
-The PDF posterior is computed from a liklihood of the data given given some parameters multiplied by a prior PDF on  the parameters made independent of the recorded data. We can compute marginalized PDFs using a suite of algorithms from C/C++ package known as \texttt{LALInference} \cite{LALSuite}. Two independent stochastic sampling techniques are utilized in \texttt{LALInference} known as Markov-chain Monte Carlo \cite{MCMC paper} and nested sampling \cite{nested sampling}. 
+The PDF posterior is computed from a liklihood of the data given given some
+parameters multiplied by a prior PDF on  the parameters made independent of the
+recorded data. We can compute marginalized PDFs using a suite of algorithms
+from C/C++ package known as \texttt{LALInference} \cite{LALSuite}. Two
+independent stochastic sampling techniques are utilized in
+\texttt{LALInference} known as Markov-chain Monte Carlo \cite{MCMC paper} and
+nested sampling \cite{nested sampling}. 
 
    
 
 %
 % intro to generative adversarial networks
 %
-A variant of machine learning, generative adversarial networks (GANs), has gained some traction in recent years \cite{arxiv:1406.2661}. Some successful applications of GANs can be seen in image retrieval of historical archives \cite{arxiv:1607.02748}, text to image synthesis \cite{arxiv:1605.05396}, simulation of high energy particle showers \cite{arxiv:1712.10321}, along with many others. 
+A variant of machine learning, generative adversarial networks (GANs), has
+gained some traction in recent years \cite{arxiv:1406.2661}. Some successful
+applications of GANs can be seen in image retrieval of historical archives
+\cite{arxiv:1607.02748}, text to image synthesis \cite{arxiv:1605.05396},
+simulation of high energy particle showers \cite{arxiv:1712.10321}, along with
+many others. 
 
-GANs are composed of two neural networks, a discriminator and a generator. The generator network attempts to map random latent variables to some distribution which the user wants the GAN to approximate, whereas the discriminator network will attempt to distinguish between samples from the real distribution and fake samples made by the generator network. You need only to feed into the generator as input a vector of latent random variables (can be uniform, Gaussian, etc.). The variables are latent in that they are not directly related to the distribution that the generator is trying to emulate, however in our case they do have an underlying Gaussian distribution. An additional motivation for using GANs is that they are also semi-supervised, so few training samples are needed, and you are left with by default two tools (one for classification and one for sample generation).  
+GANs are composed of two neural networks, a discriminator and a generator. The
+generator network attempts to map random latent variables to some distribution
+which the user wants the GAN to approximate, whereas the discriminator network
+will attempt to distinguish between samples from the real distribution and fake
+samples made by the generator network. You need only to feed into the generator
+as input a vector of latent random variables (can be uniform, Gaussian, etc.).
+The variables are latent in that they are not directly related to the
+distribution that the generator is trying to emulate, however in our case they
+do have an underlying Gaussian distribution. An additional motivation for using
+GANs is that they are also semi-supervised, so few training samples are needed,
+and you are left with by default two tools (one for classification and one for
+sample generation).  
 
 We use a variant of a GAN called deep convolutional generative adversarial
-networks (DCGAN)~\cite{1511.06434}. DCGANs are composed of two networks which act as
-the generator and discriminator, however the difference between DCGANs and their more standard
-GAN brethren is that both networks are entirely made of
-convolutional layers. We follow the architecture guidelines laid out in Radford et al.
-~\cite{1511.06434} which are as follows: replace pooling (downsampling) layers with strided
-convolutions (alternative to pooling),
-use batch normalization in both the generator and the discriminator, remove all fully
-connected hidden layers, use ReLU activation functions~\cite{Nair:2010:RLU:3104322.3104425}
-in the generator except for the output,
-and use LeakyReLU activation functions~\cite{Maas2013RectifierNI} in the discriminator for all layers.
+networks (DCGAN)~\cite{1511.06434}. DCGANs are composed of two networks which
+
+act as the generator and discriminator, however the difference between DCGANs
+and their more standard GAN brethren is that both networks are entirely made of
+convolutional layers. We follow the architecture guidelines laid out in Radford
+et al. ~\cite{1511.06434} which are as follows: replace pooling (downsampling)
+layers with strided convolutions (alternative to pooling), use batch
+normalization in both the generator and the discriminator, remove all fully
+connected hidden layers, use ReLU activation
+functions~\cite{Nair:2010:RLU:3104322.3104425} in the generator except for the
+output, and use LeakyReLU activation functions~\cite{Maas2013RectifierNI} in
+the discriminator for all layers.
 
 To-do:
 
@@ -190,23 +230,78 @@ To-do:
 \item GWs.
 \end{itemize}
 
-\textit{Methods}--- 
-Given any signal burried in noise, the GAN will attempt to produce reconstructed waveform estimates on the true underlying GW template waveform. After having produced reconstructed waveforms, these estimates are then fed to a convolutional neural network which has been trained seperately on noise-free waveforms to produce point estimates on their parameters. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textit{Methods}---
+%
+% synospis of method
+%
+Given any signal buried in noise, the \ac{GAN} will attempt to produce
+reconstructed waveform estimates on the true underlying GW template waveform.
+After having produced reconstructed waveforms, these estimates are then fed to
+a convolutional neural network which has been trained seperately on noise-free
+waveforms to produce point estimates on their parameters. 
 
 % how GAN is trained
-All weights in the GAN are initialized randomnly over a uniform distribution prior to training. The generator portion of the network takes as input a vector of latent variables 100 samples long. After one training iteration of the generator, there is a second training procedure whereby we append an additional layer to the generator model. This final layer is composed of two neurons where one computes the mean of the difference between the generator output and $h_t$ and the other computes the standard deviation of the difference between the generator output and $h_t$. This final layer enforces the generator to make an output which, when subtracted from $h_t$, will be a time series with unit variance and zero mean. The discriminator network then has to decide whether what the generator has made is either ``real'' or ``fake''. ``Real'' in this case, refers to gravitational wave template waveforms spanning a large parameter space and ``fake'' being the generator produced estimates on the $h_t$ noise-free waveform. 
+%
+All weights in the GAN are initialized randomnly over a uniform distribution
+prior to training. The generator portion of the network takes as input a vector
+of latent variables 100 samples long. After one training iteration of the
+generator, there is a second training procedure whereby we append an additional
+layer to the generator model. This final layer is composed of two neurons where
+one computes the mean of the difference between the generator output and $h_t$
+and the other computes the standard deviation of the difference between the
+generator output and $h_t$. This final layer enforces the generator to make an
+output which, when subtracted from $h_t$, will be a time series with unit
+variance and zero mean. The discriminator network then has to decide whether
+what the generator has made is either ``real'' or ``fake''. ``Real'' in this
+case, refers to gravitational wave template waveforms spanning a large
+parameter space and ``fake'' being the generator produced estimates on the
+$h_t$ noise-free waveform. 
 
 % h_t training signal simulation details
-Our GAN is trained using a BBH waveform of the same parameters as those from GW150914 which has been injected in Gaussian noise and is produced using \texttt{LALInference}. The injection is whitened using a simulated detector noise power spectral density (PSD) which is equivalent to what is expected from the Advanced LIGO design senstivity curves. Whitening is done in order to rescale the noise contribution at each frequency to have equal power.
+%
+Our GAN is trained using a BBH waveform of the same parameters as those from
+GW150914 which has been injected in Gaussian noise and is produced using
+\texttt{LALInference}. The injection is whitened using a simulated detector
+noise power spectral density (PSD) which is equivalent to what is expected from
+the Advanced LIGO design senstivity curves. Whitening is done in order to
+rescale the noise contribution at each frequency to have equal power.
 
 % ``real'' template waveform training data simulation details
+%
+The discriminator needs a set of ``real'' gravitational wave signals to
+distinguish from what the generator has made, so we simulated those using a
+library of gravitational wave data analysis routines called \texttt{LALSuite}.
+The parameters for these signals are distributed according to an astrophysical
+distribution. Systems are simulated such that $m_{1} > m_{2}$ , component
+masses are in the range from 5 - 95\(M_\odot\), and there is zero spin. Signals
+are given a random right ascension and declination where we assume an isotropic
+prior on the sky. The phase is drawn using a uniform prior on the range
+$[0,2\pi]$, whereas the cosine of the inclination angle is uniformly drawn
+between $[-1,1]$. We have found that simulating $\sim8,000$ templates is
+sufficient to cover the entire parameter space. 
 
-The discriminator needs a set of ``real'' gravitational wave signals to distinguish from what the generator has made, so we simulated those using a library of gravitational wave data analysis routines called \texttt{LALSuite}. The parameters for these signals are distributed according to an astrophysical distribution. Systems are simulated such that $m_{1} > m_{2}$ , component masses are in the range from 5 - 95\(M_\odot\), and there is zero spin. Signals are given a random right ascension and declination where we assume an isotropic prior on the sky. The phase is drawn using a uniform prior on the range $[0,2\pi]$, whereas the cosine of the inclination angle is uniformly drawn between $[-1,1]$. We have found that simulating $\sim8,000$ templates is sufficient to cover the entire parameter space. 
+% Convergence
+%
+Training continues until both loss functions have reached some sort of
+equilibrium (usually known as a local Nash equilibrium). However, such local
+Nash equilibriums can ocassionally be off from the true Nash equilibrium, so it
+can be difficult determining a training stopping threshold. Training accuracy
+is usually quantified through use of the loss functions of the GAN, visual
+comparison of generator output to the true noise-free waveform and visual
+comparisons of the estimated posterior distributions of both methods.
 
-%Convergence
-Training continues until both loss functions have reached some sort of equilibrium (usually known as a local Nash equilibrium). However, such local Nash equilibriums can ocassionally be off from the true Nash equilibrium, so it can be difficult determining a training stopping threshold. Training accuracy is usually quantified through use of the loss functions of the GAN, visual comparison of generator output to the true noise-free waveform and visual comparisons of the estimated posterior distributions of both methods.
+Convergence towards the Nash equilibrium is attained through multiple
+train/test iterations using marginally modified GANs. Some of the many
+modifications that were tried include additonal layers, varrying activation
+functions, Dropout percentage, filter size and stride length. In the end, the
+ideal network configuration which was used in this study can be seen in
+\textbf{Some Figure}. 
 
-Convergence towards the Nash equilibrium is attained through multiple train/test iterations using marginally modified GANs. Some of the many modifications that were tried include additonal layers, varrying activation functions, Dropout percentage, filter size and stride length. In the end, the ideal network configuration which was used in this study can be seen in \textbf{Some Figure}. 
+\begin{figure}
+\includegraphics[draft,width=\columnwidth]{foo}
+\caption{diagram of the GAN-CNN scheme?}
+\end{figure}
 
 To-do:
 
@@ -217,6 +312,7 @@ To-do:
 %\item Modifications from standard GAN (most of section).
 \end{itemize}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \textit{Results}---
 
 
@@ -231,12 +327,26 @@ Small section on waveform reconstruction. Plot of this as well.
 \end{itemize}
 \textit{Conclusions}---
 
-We have shown in this letter that GANs, given an arbitrary whitened signal burried in whitened Gaussian noise, can reconstruct the noise-free waveform to a high degree of accuracy. When multiple estimates of the $h_t$ noise-free waveform have been sent through a seperately trained parameter estimation CNN, it was shown that the posterior distribution of both the machine learning method and the Bayesian approach closely overlap.
+We have shown in this letter that GANs, given an arbitrary whitened signal
+burried in whitened Gaussian noise, can reconstruct the noise-free waveform to
+a high degree of accuracy. When multiple estimates of the $h_t$ noise-free
+waveform have been sent through a seperately trained parameter estimation CNN,
+it was shown that the posterior distribution of both the machine learning
+method and the Bayesian approach closely overlap.
 
-The total training time for the GAN waveform reconstruction and CNN parameter estimation is on the order of \textbf{Some number}, while the Bayesian inference approach is on the order of \textbf{Some number}. Thus, the GAN approach offers a significant decrease in the latency required to get Bayesian posterior-like estimates on gravitational wave parameters. Low-latency parameter estimation will be of increasing importance in the near future. As the detectors become more sensitive, we will see an increased number of gravitational wave signals. These signals will need to be processed in an efficient and timely manner so that our EM partners may have the most accurate information in the fastest time period.   
+The total training time for the GAN waveform reconstruction and CNN parameter
+estimation is on the order of \textbf{Some number}, while the Bayesian
+inference approach is on the order of \textbf{Some number}. Thus, the GAN
+approach offers a significant decrease in the latency required to get Bayesian
+posterior-like estimates on gravitational wave parameters. Low-latency
+parameter estimation will be of increasing importance in the near future. As
+the detectors become more sensitive, we will see an increased number of
+gravitational wave signals. These signals will need to be processed in an
+efficient and timely manner so that our EM partners may have the most accurate
+information in the fastest time period.   
 
-Among many other alternatives, future studies should be done on how non-Gaussian noise affects the accuracy of GAN parameter estimation. 
-To-do:
+Among many other alternatives, future studies should be done on how
+non-Gaussian noise affects the accuracy of GAN parameter estimation.  To-do:
 
 Percision that we get, speed (sell this hard), 
 
@@ -253,11 +363,11 @@ Percision that we get, speed (sell this hard),
 \emph{Acknowledgements.}---
 %
 We would like to acknowledge valuable input from the LIGO-Virgo Collaboration
-specifically from T.~Dent, R.~Reinhard, I.~Siong Heng, M.~Cavalgia, and the compact binary coalescence and
-machine-learning working groups. The authors also gratefully acknowledge the
-Science and Technology Facilities Council of the United Kingdom. CM is
-supported by the Science and Technology Research Council (grant
-No.~ST/~L000946/1).
+specifically from N.~Korsakova, T.~Dent, R.~Reinhard, I.~Siong Heng,
+M.~Cavalgia, and the compact binary coalescence and machine-learning working
+groups. The authors also gratefully acknowledge the Science and Technology
+Facilities Council of the United Kingdom. CM is supported by the Science and
+Technology Research Council (grant No.~ST/~L000946/1).
 %
 %\end{acknowledgments}
 
